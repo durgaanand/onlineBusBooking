@@ -1,6 +1,6 @@
-/*package com.cg.entities;
+package com.cg.entities;
 
-javax.persistence.CascadeType;
+import javax.persistence.CascadeType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -63,4 +63,4 @@ public class FeedBack {
 		this.busOperator = busOperator;
 	} 
 	
-}*/
+}

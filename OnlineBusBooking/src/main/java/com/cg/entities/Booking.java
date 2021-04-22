@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="booking3")
 //@JsonIgnoreType(value=true)
@@ -37,6 +38,7 @@ public class Booking {
 	private LocalTime journeyStartTime;
 	private LocalTime journeyEndTime;
 	@ManyToOne
+	@JsonManagedReference(value="user-booking")
 	@JoinColumn(name="user_id")
 	private User user;
 	

@@ -5,24 +5,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.cg.dao.UserDaoi;
+import com.cg.dto.UserDto;
 import com.cg.entities.User;
 
 @Service
 public class userServiceImpl implements IUsersService  {
 	@Autowired
 	UserDaoi userDao;
+	
 
-	@Override
-	public void addUser(User user) {
-		userDao.save(user);
-		
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 
 	@Override
 	public void deleteUser(String username) {
 		// TODO Auto-generated method stub
+		if(userDao.existsByUsername(username)) {
+			User user = new User();
+			user=userDao.findByUsername(username);
+			userDao.delete(user);
+		}
+			
+		
+		
 		
 	}
 
@@ -32,16 +37,17 @@ public class userServiceImpl implements IUsersService  {
 		
 	}
 
-	@Override
-	public User singIn(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
-	public User singOut(User user) {
+	public User addUser(UserDto userdto) {
 		// TODO Auto-generated method stub
-		return null;
+		User user=new User();
+		user.setUsername(userdto.getUsername());
+		user.setPassword(userdto.getPassword());
+		return userDao.save(user);
+	
+		
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,21 +12,27 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
-@Table(name="user3")
+@Table(name="user4")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
+	@Column(unique = true)
 	private String username;
 	private String password;
 	//private Map<Booking, FeedBack> bookingFeedbackInfo;
 	@OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+	@JsonBackReference(value="user-booking")
 	private List<Booking> booking;
 	
-	
-	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public User(int userId, String username, String password, List<Booking> booking) {
 		super();
 		this.userId = userId;
