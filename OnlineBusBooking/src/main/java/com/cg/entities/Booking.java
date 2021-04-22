@@ -16,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 @Entity
 @Table(name="booking3")
+//@JsonIgnoreType(value=true)
 public class Booking {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
