@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.dto.UserDto;
 import com.cg.entities.User;
+import com.cg.exceptions.InvalidUsernameException;
 import com.cg.service.userServiceImpl;
 
 @RestController
@@ -30,12 +31,12 @@ public class userController {
 	}
 
    @DeleteMapping("/delete/{username}")
-	public ResponseEntity<Object> deleteUser(@PathVariable String username){
+	public ResponseEntity<Object> deleteUser(@PathVariable String username) throws InvalidUsernameException{
 		userservice.deleteUser(username);
 		return new ResponseEntity<>("Deleted User Successfully", HttpStatus.OK);
 	}
    @PutMapping("/updateP/{username}")
-   public ResponseEntity<Object> updatePassword(@PathVariable String username,String newPassword){
+   public ResponseEntity<Object> updatePassword(@PathVariable String username,String newPassword) throws InvalidUsernameException{
 	   userservice.updatePassword(username, newPassword);
 	   return new ResponseEntity<>("password updated successfully", HttpStatus.OK);
    }
