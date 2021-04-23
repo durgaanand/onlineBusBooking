@@ -1,4 +1,4 @@
-package com.cg.entities;
+/*package com.cg.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CascadeType;
@@ -64,3 +64,4 @@ public class FeedBack {
 	} 
 	
 }
+*/
