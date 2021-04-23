@@ -9,5 +9,7 @@ import com.cg.entities.User;
 public interface UserDaoi extends JpaRepository<User,Integer>  {
 	boolean existsByUsername(String username);  
 	User findByUsername(String username);
+	void save(String newPassword);
+	
 
 }

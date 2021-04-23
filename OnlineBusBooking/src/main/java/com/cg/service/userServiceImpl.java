@@ -34,6 +34,15 @@ public class userServiceImpl implements IUsersService  {
 	@Override
 	public void updatePassword(String username, String newPassword) {
 		// TODO Auto-generated method stub
+		if(userDao.existsByUsername(username)) {
+			User user = new User();
+			UserDto userdto = new UserDto();
+			user=userDao.findByUsername(username);
+			user.setPassword(userdto.getPassword());
+			userDao.save(newPassword);
+		}
+			
+		
 		
 	}
 
