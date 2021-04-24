@@ -1,6 +1,6 @@
 package com.cg.exceptions;
 
-public class InvalidUsernameException extends Exception {
+public class InvalidUsernameException extends RuntimeException {
 	String message;
 	public InvalidUsernameException(String message)
 	{
