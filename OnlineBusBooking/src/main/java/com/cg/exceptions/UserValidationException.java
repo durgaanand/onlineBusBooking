@@ -6,12 +6,14 @@ import java.util.List;
 public class UserValidationException extends RuntimeException
 {
    List<String> messages= new ArrayList();
-	public UserValidationException() {
+	public UserValidationException()
+	{
 		super();
 		
 	}
 
-	public UserValidationException(String message) {
+	public UserValidationException(String message) 
+	{
 		super(message);
 		
 	}
