@@ -1,13 +1,13 @@
 package com.cg.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.cg.dao.UserDaoi;
 import com.cg.dto.UserDto;
 import com.cg.entities.User;
-import com.cg.exceptions.InvalidUsernameException;
+import com.cg.exceptions.UsernameAlreadyExistsException;
+import com.cg.exceptions.UsernameNotFoundException;
 
 @Service
 public class userServiceImpl implements IUsersService  {
@@ -17,9 +17,18 @@ public class userServiceImpl implements IUsersService  {
 
 	
 	
-
+    
+	/*************
+	 * Method : deleteUser
+	 * Description: method used for deleting existing  user
+	 * 
+	 * @param username
+	 * @return void
+	 * Created date: 20 April 2021
+	 * 
+	 */
 	@Override
-	public void deleteUser(String username) 
+	public void deleteUser(String username)  
 	{
 		// TODO Auto-generated method stub
 		if(userDao.existsByUsername(username))
@@ -28,12 +37,22 @@ public class userServiceImpl implements IUsersService  {
 			user=userDao.findByUsername(username);
 			userDao.delete(user);
 		}
-			
-		
-		
-		
+		else
+		{
+			throw new UsernameNotFoundException();
+		}
+				
 	}
-
+	
+	 /*************
+	 * Method : updatePassword
+	 * Description: method used updating password of an existing user
+	 * 
+	 * @param username, newPassword
+	 * @return void
+	 * Created date: 20 April 2021
+	 * 
+	 */
 	@Override
 	public void updatePassword(String username, String newPassword) 
 	{
@@ -41,14 +60,13 @@ public class userServiceImpl implements IUsersService  {
 		if(userDao.existsByUsername(username)) 
 		{
 			User user = new User();
-			UserDto userdto = new UserDto();
 			user=userDao.findByUsername(username);
-			user.setPassword(userdto.getPassword());
-			userDao.save(newPassword);
+			user.setPassword(newPassword);
+			userDao.save(user);
 		}
 		else
 		{
-			throw new InvalidUsernameException("not found");
+			throw new UsernameNotFoundException();
 		}
 			
 			
@@ -60,9 +78,8 @@ public class userServiceImpl implements IUsersService  {
 	 * Method : addUser
 	 * Description: method used for adding a new user
 	 * 
-	 * @param user
+	 * @param userdto
 	 * @return User
-	 * @PostMapping:  definition
 	 * Created date: 20 April 2021
 	 * 
 	 */
@@ -73,9 +90,18 @@ public class userServiceImpl implements IUsersService  {
 	{
 		// TODO Auto-generated method stub
 		User user=new User();
+		if(userDao.existsByUsername(userdto.getUsername())) 
+		{
+			throw new UsernameAlreadyExistsException();
+			
+		}
+		else
+		{
 		user.setUsername(userdto.getUsername());
+		
 		user.setPassword(userdto.getPassword());
 		return userDao.save(user);
+		}
 	
 		
 	}

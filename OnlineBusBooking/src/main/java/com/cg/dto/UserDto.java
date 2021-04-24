@@ -1,7 +1,13 @@
 package com.cg.dto;
 
-public class UserDto {
+import javax.validation.constraints.NotEmpty;
+//import javax.validation.constraints.NotNull;
+
+public class UserDto 
+{
+	@NotEmpty(message="Username cannot be blank")
 	private String username;
+	@NotEmpty(message="password cannot be blank")
 	private String password;
 	public UserDto() {
 		super();
@@ -25,7 +31,4 @@ public class UserDto {
 		this.password = password;
 	}
 	
-	
-	
-
 }

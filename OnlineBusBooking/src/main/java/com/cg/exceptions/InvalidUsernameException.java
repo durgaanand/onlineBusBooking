@@ -6,6 +6,9 @@ public class InvalidUsernameException extends RuntimeException {
 	{
 		this.message=message;
 	}
+	public InvalidUsernameException() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String getMessage() {
 		return message;

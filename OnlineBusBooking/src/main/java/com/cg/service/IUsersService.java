@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.cg.dto.UserDto;
 import com.cg.entities.Booking;
 import com.cg.entities.User;
-import com.cg.exceptions.InvalidBookingIdException;
 @Service
 public interface IUsersService {
 
