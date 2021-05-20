@@ -1,50 +1,157 @@
 package com.cg.entities;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.Length;
+
+/*********************************************************************
+ * 
+ * @author Harshitha V 
+ * Version: 1.0 
+ * Date: 19-04-2021 
+ * Description: This is the entity class of the Booking module
+ *
+ *********************************************************************/
+
 @Entity
-@Table(name="booking3")
-//@JsonIgnoreType(value=true)
+@Table
 public class Booking {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-
-	private int bookingId; // busoperatorid+busid+date+time+uniqueNumber
-	private String username; // login-username
-	//private List<Pessenger> pessengersInfo;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "booking_Counter", sequenceName = "booking_Sequence", initialValue = 1)
+	private long bookingId;
+	@NotEmpty(message = "username should not be empty")
+	@Length(min = 3, max = 15)
+	private String username;
 	private String busNumber;
 	private String source;
 	private String destination;
 	private int numberOfSeats;
 	private int amountPaid;
-	@Column(name="dataOfBooking")
-	private LocalDate date;
-	private LocalTime journeyStartTime;
-	private LocalTime journeyEndTime;
+	public LocalDate datenm;
+
 	@ManyToOne
-	@JsonManagedReference(value="user-booking")
-	@JoinColumn(name="user_id")
-	private User user;
-	
-		public Booking(int bookingId, String username, String busNumber, String source, String destination,
-			int numberOfSeats, int amountPaid, LocalDate date, LocalTime journeyStartTime, LocalTime journeyEndTime,
-			User user) {
+	@JoinColumn(name = "passengerId")
+	private Passenger passengerInfo;
+
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User userInfo;
+
+	/******************************************************************
+	 * Description: Getter & Setter functions for the above attributes
+	 * 
+	 ******************************************************************/
+
+	public long getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(long bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getBusNumber() {
+		return busNumber;
+	}
+
+	public void setBusNumber(String busNumber) {
+		this.busNumber = busNumber;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	public int getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(int numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public int getAmountPaid() {
+		return amountPaid;
+	}
+
+	public void setAmountPaid(int amountPaid) {
+		this.amountPaid = amountPaid;
+	}
+
+	public LocalDate getDatenm() {
+		return datenm;
+	}
+
+	public void setDatenm(LocalDate datenm) {
+		this.datenm = datenm;
+	}
+
+	public Passenger getPassengerInfo() {
+		return passengerInfo;
+	}
+
+	public void setPassengerInfo(Passenger passengerInfo) {
+		this.passengerInfo = passengerInfo;
+	}
+
+	public User getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(User userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	/****************************************************
+	 * 
+	 * @author Harshitha V
+	 * @param bookingId
+	 * @param username
+	 * @param busNumber
+	 * @param source
+	 * @param destination
+	 * @param numberOfSeats
+	 * @param amountPaid
+	 * @param datenm
+	 * @param passengerInfo
+	 * @param userInfo      
+	 * This is a parameterized constructor
+	 * 
+	 ******************************************************/
+	public Booking(long bookingId, @NotEmpty(message = "username should not be empty") String username,
+			String busNumber, String source, String destination, int numberOfSeats, int amountPaid, LocalDate datenm,
+			Passenger passengerInfo, User userInfo) {
 		super();
 		this.bookingId = bookingId;
 		this.username = username;
@@ -53,86 +160,36 @@ public class Booking {
 		this.destination = destination;
 		this.numberOfSeats = numberOfSeats;
 		this.amountPaid = amountPaid;
-		this.date = date;
-		this.journeyStartTime = journeyStartTime;
-		this.journeyEndTime = journeyEndTime;
-		this.user = user;
+		this.datenm = datenm;
+		this.passengerInfo = passengerInfo;
+		this.userInfo = userInfo;
 	}
 
-		@JsonBackReference
-	public User getUser() {
-		return user;
+	/**********************************
+	 * 
+	 * @author Harshitha V 
+	 * This is a no-arg constructor
+	 * 
+	 **********************************/
+
+	public Booking() {
+		super();
+
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	/*******************************
+	 * 
+	 * @author Harshitha V 
+	 * This is toString() method
+	 * 
+	 *******************************/
+
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", username=" + username + ", busNumber=" + busNumber + ", source="
+				+ source + ", destination=" + destination + ", numberOfSeats=" + numberOfSeats + ", amountPaid="
+				+ amountPaid + ", datenm=" + datenm + ", passengerInfo=" + passengerInfo + ", userInfo=" + userInfo
+				+ "]";
 	}
 
-	public int getBookingId() {
-		return bookingId;
-	}
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	/*public List<Pessenger> getPessengersInfo() {
-		return pessengersInfo;
-	}
-	public void setPessengersInfo(List<Pessenger> pessengersInfo) {
-		this.pessengersInfo = pessengersInfo;
-	}*/
-	public String getBusNumber() {
-		return busNumber;
-	}
-	public void setBusNumber(String busNumber) {
-		this.busNumber = busNumber;
-	}
-	public String getSource() {
-		return source;
-	}
-	public void setSource(String source) {
-		this.source = source;
-	}
-	public String getDestination() {
-		return destination;
-	}
-	public void setDestination(String destination) {
-		this.destination = destination;
-	}
-	public int getNumberOfSeats() {
-		return numberOfSeats;
-	}
-	public void setNumberOfSeats(int numberOfSeats) {
-		this.numberOfSeats = numberOfSeats;
-	}
-	public int getAmountPaid() {
-		return amountPaid;
-	}
-	public void setAmountPaid(int amountPaid) {
-		this.amountPaid = amountPaid;
-	}
-	public LocalDate getDate() {
-		return date;
-	}
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-	public LocalTime getJourneyStartTime() {
-		return journeyStartTime;
-	}
-	public void setJourneyStartTime(LocalTime journeyStartTime) {
-		this.journeyStartTime = journeyStartTime;
-	}
-	public LocalTime getJourneyEndTime() {
-		return journeyEndTime;
-	}
-	public void setJourneyEndTime(LocalTime journeyEndTime) {
-		this.journeyEndTime = journeyEndTime;
-	}
-	
 }

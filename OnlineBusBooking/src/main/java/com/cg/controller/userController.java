@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,7 @@ import com.cg.service.userServiceImpl;
  *******************************************************************/
 @RestController
 @RequestMapping("/user")
-
+@CrossOrigin("*")
 public class userController {
 	@Autowired
 	private userServiceImpl userservice;
@@ -59,10 +60,11 @@ public class userController {
 	
 	
 	
-	@PostMapping("/userapi")
+	@PostMapping("/addUser")
 	public ResponseEntity<Object> addUser(@Valid @RequestBody UserDto user, BindingResult bindingResult)
 	{
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) 
+		{
 			System.out.println("Some errors exist!");
 			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
@@ -95,8 +97,10 @@ public class userController {
 	 * 
 	 */
 	 @DeleteMapping("/delete/{username}")
-	public ResponseEntity<Object> deleteUser(@Valid @PathVariable String username) {
-		 try {
+	public ResponseEntity<Object> deleteUser(@Valid @PathVariable String username) 
+	 {
+		 try
+		 {
 		userservice.deleteUser(username);
 		 }
 		 catch(UsernameNotFoundException exception)
@@ -120,12 +124,15 @@ public class userController {
 		
    @PutMapping("/updateP/{username}")
    public ResponseEntity<Object> updatePassword(@Valid @PathVariable String username,@RequestBody String newPassword, BindingResult bindingResult) 
-   {if (bindingResult.hasErrors()) {
+   {
+	   if (bindingResult.hasErrors()) 
+	   {
 		System.out.println("Some errors exist!");
 		List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
 		List<String> errMessages = new ArrayList<>();
-		for (FieldError fe : fieldErrors) {
+		for (FieldError fe : fieldErrors)
+		{
 			errMessages.add(fe.getDefaultMessage());
 		}
 		throw new UserValidationException(errMessages);
@@ -145,6 +152,42 @@ public class userController {
 	  
 	   return new ResponseEntity<>("password updated successfully", HttpStatus.OK);
    }
+   
+   
+   
+   
+   
+   @PutMapping("/updatePass")
+   public ResponseEntity<Object> updatePassword(@Valid @RequestBody  UserDto user, BindingResult bindingResult) 
+   {
+	   if (bindingResult.hasErrors()) 
+	   {
+		System.out.println("Some errors exist!");
+		List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+		List<String> errMessages = new ArrayList<>();
+		for (FieldError fe : fieldErrors)
+		{
+			errMessages.add(fe.getDefaultMessage());
+		}
+		throw new UserValidationException(errMessages);
+	}
+   try
+   {
+	   userservice.updatePassword(user.getUsername(), user.getPassword());
+   }
+   catch(UsernameNotFoundException exception)
+   {
+   	throw new UsernameNotFoundException("username not found ");
+   }
+   catch(InvalidUserException exception)
+   {
+	   throw new InvalidUserException("userName or password invalid");
+   }
+	  
+	   return new ResponseEntity<>("password updated successfully", HttpStatus.OK);
+   }
+
 
         
 }

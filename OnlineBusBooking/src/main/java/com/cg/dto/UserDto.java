@@ -1,7 +1,17 @@
 package com.cg.dto;
+/******************************************************************
+ * 
+ * 
+ * 
+ * @author Anand
+ * Description: This class is used for creating data transfer object fields 
+ * Created date: 19 April 2021
+ *  Version: v1.1
+ * 
+ *
+ *******************************************************************/
 
 import javax.validation.constraints.NotEmpty;
-//import javax.validation.constraints.NotNull;
 
 public class UserDto 
 {
@@ -9,25 +19,30 @@ public class UserDto
 	private String username;
 	@NotEmpty(message="password cannot be blank")
 	private String password;
-	public UserDto() {
+	public UserDto() 
+	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public UserDto(String username, String password) {
+	public UserDto(String username, String password) 
+	{
 		super();
 		this.username = username;
 		this.password = password;
 	}
-	public String getUsername() {
+	public String getUsername() 
+	{
 		return username;
 	}
-	public void setUsername(String username) {
+	public void setUsername(String username) 
+	{
 		this.username = username;
 	}
-	public String getPassword() {
+	public String getPassword() 
+	{
 		return password;
 	}
-	public void setPassword(String password) {
+	public void setPassword(String password) 
+	{
 		this.password = password;
 	}
 	

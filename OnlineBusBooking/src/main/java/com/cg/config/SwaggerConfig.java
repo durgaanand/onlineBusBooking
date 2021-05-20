@@ -12,9 +12,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SwaggerConfig
+{
     @Bean
-    public Docket productApi() {
+    public Docket productApi()
+    {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.cg"))
@@ -24,7 +26,8 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(metaData());
     }
-    private ApiInfo metaData() {
+    private ApiInfo metaData() 
+    {
         ApiInfo apiInfo = new ApiInfo(
                 "OnlineBusBooking",
                 "OBB details end points",

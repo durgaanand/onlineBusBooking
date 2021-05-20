@@ -1,6 +1,4 @@
 package com.cg;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -10,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.dto.UserDto;
 import com.cg.exceptions.InvalidUsernameException;
+import com.cg.exceptions.UsernameNotFoundException;
 import com.cg.service.IUsersService;
 
 @SpringBootTest
@@ -20,16 +19,20 @@ class OnlineBusBookingApplicationTests {
 	@Test
 	void addUserTest() 
 	{
-		UserDto userdto = new UserDto("harika", "456");
-		assertEquals("anand", userService.addUser(userdto).getUsername());
+		UserDto userdto = new UserDto("rajan", "meghana");
+		assertEquals("rajan", userService.addUser(userdto).getUsername());
 		
 		
 	}
+	
+	
 	@Test
 	void updatePasswordTest()
 	{
-		assertThrows(InvalidUsernameException.class, ()->userService.updatePassword("bindhu","789"));
+		assertThrows(UsernameNotFoundException.class, ()->userService.updatePassword("dhanum","789"));
+		
 		
 	}
+	
 
 }

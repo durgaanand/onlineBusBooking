@@ -1,7 +1,20 @@
 package com.cg.service;
+/******************************************************************
+ * 
+ * 
+ * 
+ * @author Anand
+ * Description: This class is used for implementation of addUser , deleteUser , update userPassword methods
+ * Version: v1.1
+ * Created date: 20 April 2021
+ * 
+ * 
+ *
+ *******************************************************************/
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.dao.UserDaoi;
 import com.cg.dto.UserDto;
@@ -27,10 +40,10 @@ public class userServiceImpl implements IUsersService  {
 	 * Created date: 20 April 2021
 	 * 
 	 */
+	@Transactional
 	@Override
 	public void deleteUser(String username)  
 	{
-		// TODO Auto-generated method stub
 		if(userDao.existsByUsername(username))
 		{
 			User user = new User();
@@ -53,10 +66,10 @@ public class userServiceImpl implements IUsersService  {
 	 * Created date: 20 April 2021
 	 * 
 	 */
+	@Transactional
 	@Override
 	public void updatePassword(String username, String newPassword) 
 	{
-		// TODO Auto-generated method stub
 		if(userDao.existsByUsername(username)) 
 		{
 			User user = new User();
@@ -84,11 +97,10 @@ public class userServiceImpl implements IUsersService  {
 	 * 
 	 */
 	
-
+	@Transactional
 	@Override
 	public User addUser(UserDto userdto) 
 	{
-		// TODO Auto-generated method stub
 		User user=new User();
 		if(userDao.existsByUsername(userdto.getUsername())) 
 		{
@@ -98,7 +110,6 @@ public class userServiceImpl implements IUsersService  {
 		else
 		{
 		user.setUsername(userdto.getUsername());
-		
 		user.setPassword(userdto.getPassword());
 		return userDao.save(user);
 		}

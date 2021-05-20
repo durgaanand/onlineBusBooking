@@ -1,6 +1,5 @@
-/*package com.cg.entities;
+package com.cg.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,60 +7,131 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/*********************************************************************
+ * 
+ * @author Harshitha V 
+ * Version: 1.0 
+ * Date: 20-04-2021 
+ * Description: This is the entity class of the Feedback module
+ *
+ *********************************************************************/
+
 @Entity
-@Table(name="feedback1")
+@Table(name = "feedback")
 public class FeedBack {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int rating;
-	private String comment;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="userId")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int feedbackId;
+	private int ratings;
+	private String comments;
 	private String username;
 	private String routeName;
-	//private BusOperator busOperator;
-	public FeedBack(int rating, String comment, String username, String routeName, BusOperator busOperator) {
-		super();
-		this.rating = rating;
-		this.comment = comment;
-		this.username = username;
-		this.routeName = routeName;
-		this.busOperator = busOperator;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userId")
+	private User user;
+
+	/******************************************************************
+	 * Description: Getter & Setter functions for the above attributes
+	 * 
+	 ******************************************************************/
+
+	public int getFeedbackId() {
+		return feedbackId;
 	}
-	public int getRating() {
-		return rating;
+
+	public void setFeedbackId(int feedbackId) {
+		this.feedbackId = feedbackId;
 	}
-	public void setRating(int rating) {
-		this.rating = rating;
+
+	public int getRatings() {
+		return ratings;
 	}
-	public String getComment() {
-		return comment;
+
+	public void setRatings(int ratings) {
+		this.ratings = ratings;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+
+	public String getComments() {
+		return comments;
 	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getRouteName() {
 		return routeName;
 	}
+
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
 	}
-	public BusOperator getBusOperator() {
-		return busOperator;
+
+	public User getUser() {
+		return user;
 	}
-	public void setBusOperator(BusOperator busOperator) {
-		this.busOperator = busOperator;
-	} 
-	
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/****************************************************
+	 * 
+	 * @author Harshitha V
+	 * @param feedbackId
+	 * @param ratings
+	 * @param comments
+	 * @param username
+	 * @param routeName
+	 * @param user       
+	 * This is a parameterized constructor
+	 * 
+	 ******************************************************/
+
+	public FeedBack(int feedbackId, int ratings, String comments, String username, String routeName, User user) {
+		super();
+		this.feedbackId = feedbackId;
+		this.ratings = ratings;
+		this.comments = comments;
+		this.username = username;
+		this.routeName = routeName;
+		this.user = user;
+	}
+
+	/**********************************
+	 * 
+	 * @author Hasrshitha V 
+	 * This is a no-arg constructor
+	 * 
+	 **********************************/
+
+	public FeedBack() {
+		super();
+	}
+
+	/*******************************
+	 * 
+	 * @author Harshitha V 
+	 * This is toString() method
+	 * 
+	 *******************************/
+
+	@Override
+	public String toString() {
+		return "FeedBack [feedbackId=" + feedbackId + ", ratings=" + ratings + ", comments=" + comments + ", username="
+				+ username + ", routeName=" + routeName + ", user=" + user + "]";
+	}
+
 }
-*/

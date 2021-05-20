@@ -1,4 +1,16 @@
 package com.cg.entities;
+/******************************************************************
+ * 
+ * 
+ * 
+ * @author Anand
+ * Description: This class is used for creating  data fields, getter and setter methods for respective fields 
+ * Version: v1.1
+ * Created date: 18 April 2021
+ * 
+ * 
+ *
+ *******************************************************************/
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +25,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 @Table(name="user4")
 public class User {
 	@Id
@@ -24,13 +39,12 @@ public class User {
 	private String username;
 	private String password;
 	//private Map<Booking, FeedBack> bookingFeedbackInfo;
-	@OneToMany(mappedBy="user",cascade = CascadeType.ALL)
-	@JsonBackReference(value="user-booking")
+	@OneToMany(mappedBy="userInfo",cascade = CascadeType.ALL)
+
 	private List<Booking> booking;
 	
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public User(int userId, String username, String password, List<Booking> booking) {
@@ -61,7 +75,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@JsonManagedReference
+	
 	public List<Booking> getBooking() {
 		return booking;
 	}
