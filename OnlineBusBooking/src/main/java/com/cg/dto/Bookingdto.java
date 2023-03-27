@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.Length;
-
 /******************************************************************
  * 
  * @author Harshitha V
@@ -18,7 +16,6 @@ import org.hibernate.validator.constraints.Length;
 public class Bookingdto 
 {
 	@NotEmpty(message="username should not be empty")
-	@Length(min = 3, max = 15)
 	private String username; 
 	private String busNumber;
 	private String source;
@@ -88,7 +85,7 @@ public class Bookingdto
 	}
 	
 	
-	public Bookingdto(@NotEmpty(message = "username should not be empty") @Length(min = 3, max = 15) String username,
+	public Bookingdto(@NotEmpty(message = "username should not be empty") String username,
 			String busNumber, String source, String destination, Integer numberOfSeats, Integer amountPaid,
 			LocalDate datenm, @NotEmpty(message = "passengerId can not be empty") Integer passengerId,
 			@NotEmpty(message = "userid can not be empty") Integer userId) {

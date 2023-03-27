@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +33,9 @@ import com.cg.exceptions.InvalidBusRouteNameException;
 import com.cg.exceptions.InvalidDateException;
 
 import com.cg.service.BookingServiceImpl;
+import org.springframework.web.servlet.ModelAndView;
 
-import io.swagger.annotations.Api;
+//import io.swagger.annotations.Api;
 
 
 /******************************************************************
@@ -45,8 +47,8 @@ import io.swagger.annotations.Api;
  * 
  ******************************************************************/
 
-@RestController
-@Api(value = "Booking API")
+@Controller
+//@Api(value = "Booking API")
 @RequestMapping(value = "/OnlineBusBooking/booking")
 public class BookingController {
 
@@ -65,7 +67,13 @@ public class BookingController {
 	 * Description: Adds new booking details into the database
 	 * 
 	 **********************************************************/
-	
+	@RequestMapping("/home")
+	public ModelAndView home(){
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("index");
+		return modelAndView;
+	}
 	@PostMapping(value = "/addBooking")
 	public ResponseEntity<Object> addBooking(@Valid @RequestBody Booking booking, BindingResult bindingResult) {
 

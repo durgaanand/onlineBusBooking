@@ -12,7 +12,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.Length;
 
 /*********************************************************************
  * 
@@ -31,7 +30,7 @@ public class Booking {
 	@SequenceGenerator(name = "booking_Counter", sequenceName = "booking_Sequence", initialValue = 1)
 	private long bookingId;
 	@NotEmpty(message = "username should not be empty")
-	@Length(min = 3, max = 15)
+
 	private String username;
 	private String busNumber;
 	private String source;
